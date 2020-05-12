@@ -1,11 +1,10 @@
 package io.kadach.flyfall.controller
 
 import io.kadach.flyfall.dto.ScoreRequest
+import io.kadach.flyfall.dto.ScoreResponse
 import io.kadach.flyfall.service.ScoreService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.data.domain.PageRequest
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/score")
@@ -15,5 +14,10 @@ class ScoreController(
     @PostMapping
     fun save(@RequestBody request: ScoreRequest) {
         service.save(request)
+    }
+
+    @GetMapping
+    fun list(@RequestParam page: Int, @RequestParam size: Int): List<ScoreResponse> {
+        return service.list(page, size).map { ScoreResponse(it) }
     }
 }
