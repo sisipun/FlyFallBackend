@@ -1,12 +1,9 @@
 package io.kadach.flyfall.model
 
-import org.springframework.data.relational.core.mapping.Table
+import javax.persistence.Entity
 
-@Table("scores")
+@Entity(name = "scores")
 data class Score(
         val userId: Long,
         val value: Long
-): BaseModel() {
-
-
-}
+): BaseModel()

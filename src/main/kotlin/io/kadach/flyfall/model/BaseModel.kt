@@ -1,9 +1,14 @@
 package io.kadach.flyfall.model
 
-import org.springframework.data.annotation.Id
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.MappedSuperclass
 
+@MappedSuperclass
 abstract class BaseModel(
         @field:Id
-        open val id: Long? = null
+        @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Long? = null
 ) {
 }

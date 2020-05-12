@@ -1,8 +1,10 @@
 package io.kadach.flyfall.model
 
-import org.springframework.data.relational.core.mapping.Table
+import org.hibernate.annotations.Table
+import javax.persistence.Entity
 
-@Table("users")
+@Entity(name = "users")
 data class User(
-        val mobileId: String
+        val mobileId: String,
+        val name: String
 ) : BaseModel()
