@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/score")
+@RequestMapping("/scores")
 class ScoreController(
         private val service: ScoreService
 ) {
