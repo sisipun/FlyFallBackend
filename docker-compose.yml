@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  app:
+    image: flyfall-app
+    depends_on:
+      - postgresql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/flyfall
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=secret
+    ports:
+      - 8080:8080
+
+  postgresql:
+    image: postgres
+    volumes:
+      - flyfall-postgresql-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: flyfall
+
+volumes:
+  flyfall-postgresql-data:
