@@ -16,12 +16,13 @@ import org.springframework.transaction.annotation.Transactional
 class DefaultScoreService(
         private val repository: ScoreRepository,
         private val userRepository: UserRepository
-): ScoreService {
+) : ScoreService {
 
     @Transactional
     override fun save(request: ScoreRequest): Score {
-        val user = userRepository.findByMobileId(request.mobileId!!) ?: userRepository.save(User(request.mobileId!!, request.name!!))
-        return repository.save(Score(user.id!!, request.value!!))
+        val user = userRepository.findByMobileId(request.mobileId!!)
+                ?: userRepository.save(User(request.mobileId!!, request.name!!))
+        return repository.save(Score(user, request.value!!))
     }
 
     override fun list(page: Int, size: Int): List<ScoreAggregation> {
