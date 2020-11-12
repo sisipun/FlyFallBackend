@@ -10,15 +10,11 @@
 <script>
 export default {
   name: "ScoreList",
-  data() {
-    return {
-      scores: [
-        { name: "Alex", value: 1000 },
-        { name: "Max", value: 400 },
-        { name: "John", value: 100 },
-        { name: "Len", value: 95 },
-      ],
-    };
-  },
+  props: {
+    scores: {
+      type: Array,
+      required: true
+    }
+  }
 };
 </script>
