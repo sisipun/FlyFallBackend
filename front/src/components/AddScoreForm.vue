@@ -26,7 +26,6 @@ export default {
         value: this.value,
       };
 
-      console.log(score)
       this.$emit('score-added', score)
 
       this.mobileId = ""

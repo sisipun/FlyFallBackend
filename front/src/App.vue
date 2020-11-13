@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     addScore(score) {
-      console.log(score)
       this.scores.push(score)
     }
   }
