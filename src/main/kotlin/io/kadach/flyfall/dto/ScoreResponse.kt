@@ -1,13 +1,16 @@
 package io.kadach.flyfall.dto
 
-import io.kadach.flyfall.model.ScoreAggregation
+import io.kadach.flyfall.model.Score
+import java.util.*
 
 class ScoreResponse(
         val mobileId: String,
         val name: String,
-        val value: Long
+        val value: Long,
+        val creationDate: Date
 ) {
 
-    constructor(aggregation: ScoreAggregation) : this(aggregation.mobileId, aggregation.name, aggregation.value)
+    constructor(aggregation: Score) : this(aggregation.mobileId, aggregation.name, aggregation.value,
+            aggregation.creationDate)
 
 }

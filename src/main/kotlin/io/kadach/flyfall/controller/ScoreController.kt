@@ -3,7 +3,6 @@ package io.kadach.flyfall.controller
 import io.kadach.flyfall.dto.ScoreRequest
 import io.kadach.flyfall.dto.ScoreResponse
 import io.kadach.flyfall.service.ScoreService
-import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.*
 
 @CrossOrigin
@@ -18,7 +17,10 @@ class ScoreController(
     }
 
     @GetMapping
-    fun list(@RequestParam page: Int, @RequestParam size: Int): List<ScoreResponse> {
-        return service.list(page, size).map { ScoreResponse(it) }
-    }
+    fun findAll(@RequestParam page: Int, @RequestParam size: Int): List<ScoreResponse> =
+            service.findAll(page, size).map { ScoreResponse(it) }
+
+    @GetMapping("/{mobileId}")
+    fun findByMobileId(@PathVariable mobileId: String) =
+            service.findByMobileId(mobileId).map { ScoreResponse(it) }
 }

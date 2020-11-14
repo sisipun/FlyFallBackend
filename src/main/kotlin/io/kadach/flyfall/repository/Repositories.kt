@@ -2,8 +2,6 @@ package io.kadach.flyfall.repository
 
 import io.kadach.flyfall.model.BaseModel
 import io.kadach.flyfall.model.Score
-import io.kadach.flyfall.model.ScoreAggregation
-import io.kadach.flyfall.model.User
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
@@ -12,18 +10,17 @@ interface BaseRepository<T : BaseModel> : CrudRepository<T, Long>
 
 interface ScoreRepository : BaseRepository<Score> {
 
-    @Query("""SELECT new io.kadach.flyfall.model.ScoreAggregation(u.mobileId, u.name, MAX(s.value))
-            FROM scores AS s
-            JOIN users AS u
-            ON s.user.id=u.id
-            GROUP BY u
-            ORDER BY MAX(s.value) DESC""")
-    fun findMax(pageable: Pageable): List<ScoreAggregation>
+    @Query("""
+        SELECT new io.kadach.flyfall.model.Score(s.mobileId, MAX(s.name), MAX(s.value), MAX(s.creationDate))
+        FROM scores AS s WHERE EXISTS (
+            SELECT highScores.mobileId FROM scores AS highScores
+            GROUP BY highScores.mobileId 
+            HAVING highScores.mobileId = s.mobileId AND MAX(highScores.value) = s.value) 
+        GROUP BY s.mobileId
+        ORDER BY MAX(s.value) DESC
+        """)
+    fun findMax(pageable: Pageable): List<Score>
 
-}
-
-interface UserRepository : BaseRepository<User> {
-
-    fun findByMobileId(mobileId: String): User?
+    fun findByMobileId(mobileId: String): List<Score>
 
 }

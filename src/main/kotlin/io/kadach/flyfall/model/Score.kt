@@ -1,18 +1,22 @@
 package io.kadach.flyfall.model
 
+import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
 
 @Entity(name = "scores")
 data class Score(
 
-        @ManyToOne
-        @JoinColumn(name = "user_id", nullable = false, updatable = false)
-        val user: User,
+        @Column(nullable = false, updatable = false)
+        val mobileId: String,
 
         @Column(nullable = false, updatable = false)
-        val value: Long
+        val name: String,
+
+        @Column(nullable = false, updatable = false)
+        val value: Long,
+
+        @Column(nullable = false, updatable = false)
+        val creationDate: Date
 
 ): BaseModel()

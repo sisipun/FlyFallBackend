@@ -1,31 +1,24 @@
 package io.kadach.flyfall.service
 
 import io.kadach.flyfall.dto.ScoreRequest
-import io.kadach.flyfall.dto.ScoreResponse
 import io.kadach.flyfall.model.Score
-import io.kadach.flyfall.model.ScoreAggregation
-import io.kadach.flyfall.model.User
 import io.kadach.flyfall.repository.ScoreRepository
-import io.kadach.flyfall.repository.UserRepository
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 @Transactional(readOnly = true)
 class DefaultScoreService(
-        private val repository: ScoreRepository,
-        private val userRepository: UserRepository
+        private val repository: ScoreRepository
 ) : ScoreService {
 
     @Transactional
-    override fun save(request: ScoreRequest): Score {
-        val user = userRepository.findByMobileId(request.mobileId!!)
-                ?: userRepository.save(User(request.mobileId!!, request.name!!))
-        return repository.save(Score(user, request.value!!))
-    }
+    override fun save(request: ScoreRequest): Score =
+            repository.save(Score(request.mobileId!!, request.name!!, request.value!!, Date()))
 
-    override fun list(page: Int, size: Int): List<ScoreAggregation> {
-        return repository.findMax(PageRequest.of(page, size))
-    }
+    override fun findAll(page: Int, size: Int): List<Score> = repository.findMax(PageRequest.of(page, size))
+
+    override fun findByMobileId(mobileId: String): List<Score> = repository.findByMobileId(mobileId)
 }
