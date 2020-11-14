@@ -2,7 +2,7 @@
   <div class="score-list">
     <h1>Score</h1>
     <div v-for="(score, index) in scores" v-bind:key="score.name">
-      {{ index + 1 + ". " + score.name + " " + score.value }}
+      {{ index + 1 + ". " + score.name + "#" + score.mobileId + " " + score.value }}
     </div>
   </div>
 </template>
