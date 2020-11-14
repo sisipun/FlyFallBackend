@@ -3,7 +3,7 @@
     <input v-model="mobileId" />
     <input v-model="name" />
     <input v-model.number="value" />
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="Submit" />
   </form>
 </template>
 
@@ -26,11 +26,11 @@ export default {
         value: this.value,
       };
 
-      this.$emit('score-added', score)
+      this.$emit("score-added", score);
 
-      this.mobileId = ""
-      this.name = ""
-      this.value = 0
+      this.mobileId = "";
+      this.name = "";
+      this.value = 0;
     },
   },
 };
