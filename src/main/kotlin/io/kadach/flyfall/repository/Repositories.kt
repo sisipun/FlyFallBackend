@@ -12,7 +12,7 @@ interface BaseRepository<T : BaseModel> : CrudRepository<T, Long>
 
 interface ScoreRepository : BaseRepository<Score> {
 
-    @Query("""SELECT new io.kadach.flyfall.model.ScoreAggregation(u.name, MAX(s.value))
+    @Query("""SELECT new io.kadach.flyfall.model.ScoreAggregation(u.mobileId, u.name, MAX(s.value))
             FROM scores AS s
             JOIN users AS u
             ON s.user.id=u.id

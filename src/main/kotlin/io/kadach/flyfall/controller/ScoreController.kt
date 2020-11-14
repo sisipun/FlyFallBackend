@@ -6,6 +6,7 @@ import io.kadach.flyfall.service.ScoreService
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.*
 
+@CrossOrigin
 @RestController
 @RequestMapping("/scores")
 class ScoreController(
