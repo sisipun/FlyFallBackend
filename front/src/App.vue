@@ -1,6 +1,6 @@
 <template>
   <ScoreList :scores="scores" />
-  <AddScoreForm @score-added="addScore" />
+  <AddScoreForm @score-added="getScores" />
 </template>
 
 <script>
@@ -23,9 +23,6 @@ export default {
     this.getScores()
   },
   methods: {
-    addScore(score) {
-      api.post("scores", score).then(() => this.getScores())
-    },
     getScores() {
       this.scores = []
       api

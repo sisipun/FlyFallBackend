@@ -9,6 +9,8 @@
 
 
 <script>
+import api from "./../api";
+
 export default {
   name: "AddScoreForm",
   data() {
@@ -26,11 +28,13 @@ export default {
         value: this.value,
       };
 
-      this.$emit("score-added", score);
+      api.post("scores", score).then(() => {
+        this.$emit("score-added");
 
-      this.mobileId = "";
-      this.name = "";
-      this.value = 0;
+        this.mobileId = "";
+        this.name = "";
+        this.value = 0;
+      });
     },
   },
 };
