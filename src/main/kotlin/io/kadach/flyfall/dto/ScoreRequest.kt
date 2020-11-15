@@ -1,9 +1,10 @@
 package io.kadach.flyfall.dto
 
-import javax.validation.constraints.NotNull
+import javax.validation.constraints.Min
+import javax.validation.constraints.NotBlank
 
 class ScoreRequest (
-        @field:NotNull var mobileId: String? = null,
-        @field:NotNull var name: String? = null,
-        @field:NotNull var value: Long? = null
+        @field:NotBlank var mobileId: String? = null,
+        @field:NotBlank var name: String? = null,
+        @field:Min(1) var value: Long? = null
 )

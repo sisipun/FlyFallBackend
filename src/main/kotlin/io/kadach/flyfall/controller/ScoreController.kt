@@ -4,6 +4,7 @@ import io.kadach.flyfall.dto.ScoreRequest
 import io.kadach.flyfall.dto.ScoreResponse
 import io.kadach.flyfall.service.ScoreService
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @CrossOrigin
 @RestController
@@ -12,7 +13,7 @@ class ScoreController(
         private val service: ScoreService
 ) {
     @PostMapping
-    fun save(@RequestBody request: ScoreRequest) {
+    fun save(@Valid @RequestBody request: ScoreRequest) {
         service.save(request)
     }
 
