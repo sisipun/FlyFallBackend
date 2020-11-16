@@ -1,18 +1,15 @@
 <template>
   <ScoreList :scores="scores" />
-  <AddScoreForm @score-added="getScores" />
 </template>
 
 <script>
 import ScoreList from "./components/ScoreList.vue";
-import AddScoreForm from "./components/AddScoreForm.vue";
 import api from "./api";
 
 export default {
   name: "App",
   components: {
     ScoreList,
-    AddScoreForm,
   },
   data() {
     return {
