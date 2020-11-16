@@ -37,4 +37,8 @@ export default {
 .score-list-table-value {
   text-align: right;
 }
+
+.score-list-table-index  {
+  text-align: right;
+}
 </style>
