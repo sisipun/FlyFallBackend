@@ -6,7 +6,7 @@
     <input type="submit" value="Submit" />
     <div v-if="errors">
       <div v-for="error in errors" :key="error.field">
-        {{error.field}} {{error.defaultMessage}}
+        {{ error.field }} {{ error.defaultMessage }}
       </div>
     </div>
   </form>
@@ -14,7 +14,7 @@
 
 
 <script>
-import api from "./../api";
+import api from "../api";
 
 export default {
   name: "AddScoreForm",
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.errors = []
+      this.errors = [];
       const score = {
         mobileId: this.mobileId,
         name: this.name,
