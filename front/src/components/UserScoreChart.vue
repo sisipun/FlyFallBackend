@@ -19,8 +19,21 @@ export default {
   computed: {
     option: function () {
       return {
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            animation: false,
+          },
+        },
+        dataZoom: [
+          {
+            show: true,
+            realtime: true,
+          },
+        ],
         xAxis: {
           type: "category",
+          boundaryGap: false,
           data: this.scores.map((score) =>
             new Date(score.creationDate).toDateString()
           ),
@@ -32,6 +45,8 @@ export default {
           {
             data: this.scores.map((score) => score.value),
             type: "line",
+            symbolSize: 8,
+            hoverAnimation: false,
           },
         ],
       };
