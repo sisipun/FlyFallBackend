@@ -7,7 +7,7 @@
         v-for="(score, index) in scores"
         v-bind:key="score.mobileId"
       >
-        <td class="score-list-table-index">{{ index }}.</td>
+        <td class="score-list-table-index">{{ index + 1 }}.</td>
         <td class="score-list-table-name">
           <router-link
             :to="{ name: 'userScore', params: { mobileId: score.mobileId } }"
@@ -20,31 +20,49 @@
         </td>
       </tr>
     </table>
+    <div class="score-list-pagination">
+      <button v-show="pageNumber > 0" @click="previousPage">Previous</button>
+      <button v-show="scores.length === pageSize" @click="nextPage">
+        Next
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import api from "../api";
+import api from "../api"
 
 export default {
-  name: "ScoreList",
-  data() {
-    return {
-      scores: [],
-    };
-  },
-  mounted() {
-    this.getScores();
-  },
-  methods: {
-    getScores() {
-      this.scores = [];
-      api
-        .get("/scores", { params: { page: 0, size: 50 } })
-        .then((response) => (this.scores = this.scores.concat(response.data)));
+    name: "ScoreList",
+    data() {
+        return {
+            scores: [],
+            pageNumber: 0,
+            pageSize: 3,
+        }
     },
-  },
-};
+    mounted() {
+        this.getScores()
+    },
+    methods: {
+        getScores() {
+            this.scores = []
+            api
+                .get("/scores", {
+                    params: { page: this.pageNumber, size: this.pageSize },
+                })
+                .then((response) => (this.scores = this.scores.concat(response.data)))
+        },
+        previousPage() {
+            this.pageNumber--
+            this.getScores()
+        },
+        nextPage() {
+            this.pageNumber++
+            this.getScores()
+        },
+    },
+}
 </script>
 
 <style scoped>
@@ -64,5 +82,10 @@ export default {
 
 .score-list-table-index {
   text-align: right;
+}
+
+.score-list-pagination {
+  text-align: center;
+  margin: 1em;
 }
 </style>

@@ -3,56 +3,56 @@
 </template>
 
 <script>
-import { VEcharts } from "vue3-echarts";
+import { VEcharts } from "vue3-echarts"
 
 export default {
-  name: "UserScoreChart",
-  components: {
-    VEcharts,
-  },
-  props: {
-    scores: {
-      type: Array,
-      required: true,
+    name: "UserScoreChart",
+    components: {
+        VEcharts,
     },
-  },
-  computed: {
-    option: function () {
-      return {
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            animation: false,
-          },
+    props: {
+        scores: {
+            type: Array,
+            required: true,
         },
-        dataZoom: [
-          {
-            show: true,
-            realtime: true,
-          },
-        ],
-        xAxis: {
-          type: "category",
-          boundaryGap: false,
-          data: this.scores.map((score) =>
-            new Date(score.creationDate).toDateString()
-          ),
-        },
-        yAxis: {
-          type: "value",
-        },
-        series: [
-          {
-            data: this.scores.map((score) => score.value),
-            type: "line",
-            symbolSize: 8,
-            hoverAnimation: false,
-          },
-        ],
-      };
     },
-  },
-};
+    computed: {
+        option: function () {
+            return {
+                tooltip: {
+                    trigger: "axis",
+                    axisPointer: {
+                        animation: false,
+                    },
+                },
+                dataZoom: [
+                    {
+                        show: true,
+                        realtime: true,
+                    },
+                ],
+                xAxis: {
+                    type: "category",
+                    boundaryGap: false,
+                    data: this.scores.map((score) =>
+                        new Date(score.creationDate).toDateString()
+                    ),
+                },
+                yAxis: {
+                    type: "value",
+                },
+                series: [
+                    {
+                        data: this.scores.map((score) => score.value),
+                        type: "line",
+                        symbolSize: 8,
+                        hoverAnimation: false,
+                    },
+                ],
+            }
+        },
+    },
+}
 </script>
 
 <style scoped>
