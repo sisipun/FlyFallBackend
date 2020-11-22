@@ -19,16 +19,20 @@
       </tr>
     </table>
     <div class="score-list_pagination">
-      <button
+      <router-link
         v-show="pageNumber > 0"
-        @click="previousPage"
-      >Previous</button>
-      <button
+        :to="{ name: 'scoreList', query: { page: pageNumber - 1, size: pageSize  } }"
+        tag="button"
+      >
+        Previous
+      </router-link>
+      <router-link
         v-show="scores.length === pageSize"
-        @click="nextPage"
+        :to="{ name: 'scoreList', query: { page: pageNumber + 1, size: pageSize  } }"
+        tag="button"
       >
         Next
-      </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -38,11 +42,12 @@ import api from "../api"
 
 export default {
   name: "ScoreList",
+  watch: {
+    $route: 'getScores',
+  },
   data () {
     return {
       scores: [],
-      pageNumber: 0,
-      pageSize: 50,
     }
   },
   mounted () {
@@ -55,17 +60,19 @@ export default {
         .get("/scores", {
           params: { page: this.pageNumber, size: this.pageSize },
         })
-        .then((response) => (this.scores = this.scores.concat(response.data)))
-    },
-    previousPage () {
-      this.pageNumber--
-      this.getScores()
-    },
-    nextPage () {
-      this.pageNumber++
-      this.getScores()
+        .then((response) => {
+          this.scores = this.scores.concat(response.data)
+        })
     },
   },
+  computed: {
+    pageNumber: function () {
+      return this.$route.query.page ? Number(this.$route.query.page) : 0
+    },
+    pageSize: function () {
+      return this.$route.query.size ? Number(this.$route.query.size) : 3
+    },
+  }
 }
 </script>
 

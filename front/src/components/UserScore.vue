@@ -1,7 +1,7 @@
 <template>
   <div class="user-score">
     <div class="user-score_header">
-      <router-link :to="{ name: 'scoreList' }"> Back </router-link>
+      <button @click="$router.go(-1)">Back</button>
       <h1 class="user-score_header_title">
         Score of {{ $route.params.mobileId }}
       </h1>
